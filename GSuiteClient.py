@@ -6,17 +6,20 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
-class GSuiteUser():
-    def __init__(self, FirstName, LastName, pw, email):
-        self.name = {"familyName": LastName, "givenName": FirstName}
-        self.password = pw
-        self.primaryEmail = email
-        self.service = ""
+class GSuiteClient():
+    def __init__(self):
+        self.DirectoryAPIService = ""
+        self.__buildDirectoryAPIService()
         super().__init__()
     
-    def CreateUser(self):
+    def __buildDirectoryAPIService(self):
         # If modifying these scopes, delete the file token.pickle.
-        SCOPES = ['https://www.googleapis.com/auth/admin.directory.user']
+        SCOPES = [
+            'https://www.googleapis.com/auth/admin.directory.user',
+            'https://www.googleapis.com/auth/admin.directory.group',
+            'https://www.googleapis.com/auth/admin.directory.group.member',
+            'https://www.googleapis.com/auth/admin.directory.group'
+            ]
         creds = None
         # The file supersecret.token stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
@@ -36,14 +39,4 @@ class GSuiteUser():
             with open('supersecret.token', 'wb') as token:
                 pickle.dump(creds, token)
 
-        self.service =  build('admin', 'directory_v1', credentials=creds)
-        try:
-            results = self.service.users().insert(body=self.__dict__).execute()
-        except:
-            print(f"User {self.name} already exits.")
-
-def Main():
-    jb = GSuiteUser("Jack", "Black", "SuperSecret1234!@#$", "jackblack@elsersmusings.com")
-    jb.CreateUser()
-
-Main()
+        self.DirectoryAPIService =  build('admin', 'directory_v1', credentials=creds)

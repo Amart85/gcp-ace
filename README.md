@@ -49,8 +49,11 @@ python3 -m pip install --upgrade google-api-python-client google-auth-httplib2 g
 This example uses OAuth but you can also specify an API Key instead. 
 1. Once you get the sdk installed. Create the [python script](./admin_sdk.py).
 2. Enable API. For example: one that will allow you to View and manage the provisioning of users on your domain. "Google_Service_Directory"
+- Ensure you turn on the following apis for the project
+    - Admin SDK					
+    - API Discovery Service
 3. Setup OAuth landing page.
-4. Create OAuth 2.0 Client ID.
+4. Create OAuth 2.0 Client ID as a *DESKTOP APP*
 5. Download secret.json renaming it "credentials.json" and placing it in your current working directory. 
 6. Initialize by running [python script](./admin_sdk.py) and authenticating and authorizing
     - This will generate token file. 
@@ -73,3 +76,17 @@ gcloud projects create help # get help listing command FLAGS
 gcloud projects create --help # For more verbose help
 gcloud projects create cli-123456 --name bensfirstproject --folder 587805611271 # Creates project with id cli-123456 and name bensfirstproject in specific folder
 ```  
+#### Create Second Test Project 
+1. As Organization Administrator Create another project either from console or cli
+```bash
+gcloud projects create em-secondproject --name em-secondproject --folder 587805611271 # Creates project within specific folder named em-secondproject
+```
+2. Add a member to the project owner group by nesting another google group
+    - Create Google Group using [Main.py](./Main.py)
+    ```python
+    group = GSuiteGroup.NewGSuiteGroup(
+            "em-supercoolgroup@elsersmusings.com", 
+            "Project Owners for em-supercoolgroup", 
+            "em-supercoolgroup", 
+            client.DirectoryAPIService)
+    ```
