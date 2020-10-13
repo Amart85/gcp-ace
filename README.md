@@ -47,7 +47,7 @@ python3 -m pip install --upgrade google-api-python-client google-auth-httplib2 g
 ```
 ### Getting the Quick Start Code to Work 
 This example uses OAuth but you can also specify an API Key instead. 
-1. Once you get the sdk installed. Create the [python script](./admin_sdk.py).
+1. Once you get the sdk installed. Create the [python script](./AdminSDK.py).
 2. Enable API. For example: one that will allow you to View and manage the provisioning of users on your domain. "Google_Service_Directory"
 - Ensure you turn on the following apis for the project
     - Admin SDK					
@@ -55,7 +55,7 @@ This example uses OAuth but you can also specify an API Key instead.
 3. Setup OAuth landing page.
 4. Create OAuth 2.0 Client ID as a *DESKTOP APP*
 5. Download secret.json renaming it "credentials.json" and placing it in your current working directory. 
-6. Initialize by running [python script](./admin_sdk.py) and authenticating and authorizing
+6. Initialize by running [python script](./AdminSDK.py) and authenticating and authorizing
     - This will generate token file. 
 7. Safely store token for later retrieval. 
 
